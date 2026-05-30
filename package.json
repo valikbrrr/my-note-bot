@@ -2,9 +2,11 @@
   "name": "grammy-tg-bot",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon --exec tsx src/index.ts",
+    "build": "tsc",
+    "start:prod": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,13 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "grammy": "^1.35.1",
-    "nodemon": "^3.1.9"
+    "mongoose": "^9.6.2"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^25.6.2",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   }
 }
