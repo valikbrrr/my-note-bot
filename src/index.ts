@@ -2,6 +2,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import { Bot, GrammyError, HttpError } from "grammy";
 
+// check changes
 const BOT_TOKEN = process.env.BOT_TOKEN;
 if (!BOT_TOKEN) {
   console.error("Error: BOT_TOKEN is not defined in .env file");
