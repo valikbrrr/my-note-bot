@@ -2,7 +2,6 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import { Bot, GrammyError, HttpError } from "grammy";
 
-// check changes
 const BOT_TOKEN = process.env.BOT_TOKEN;
 if (!BOT_TOKEN) {
   console.error("Error: BOT_TOKEN is not defined in .env file");
@@ -11,13 +10,41 @@ if (!BOT_TOKEN) {
 
 const bot = new Bot(BOT_TOKEN);
 
+async function setBotCommands() {
+  await bot.api.setMyCommands([
+    { command: "start", description: "Начать работу с ботом" },
+    { command: "help", description: "Получить справку" },
+  ]);
+}
+
 bot.command("start", (ctx) =>
-  ctx.reply("Привет! Отправь мне любой текст, и я его повторю."),
+  ctx.reply("Привет! Что ты хочешь создать?", {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: "📝 Создать заметку", callback_data: "answer_note" }],
+        [
+          {
+            text: "🛒 Создать список продуктов",
+            callback_data: "answer_shop",
+          },
+        ],
+      ],
+    },
+  }),
 );
 
-bot.on("message:text", (ctx) => {
-  const text = ctx.message.text;
-  ctx.reply(`Ты отправил: ${text || "не текст"}`);
+bot.command("help", (ctx) =>
+  ctx.reply(
+    "Доступные команды:\n/start - Начать работу\n/help - Получить справку",
+  ),
+);
+
+bot.callbackQuery("answer_note", async (ctx) => {
+  await ctx.editMessageText("Введите вашу заметку...");
+});
+
+bot.callbackQuery("answer_shop", async (ctx) => {
+  await ctx.editMessageText("Вы выбрали: 🛒 Создать список продуктов");
 });
 
 bot.catch((err) => {
@@ -43,6 +70,9 @@ async function startBot() {
 
   try {
     await mongoose.connect(MONGODB_URI);
+
+    await setBotCommands();
+
     bot.start();
     console.log("MongoDB connected & bot started");
   } catch (error) {
