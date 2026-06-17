@@ -1,4 +1,4 @@
-import { Context } from "grammy";
+import { Context } from "../../types/context.js"; // 👈 Используй правильный тип
 import { FolderService } from "../../services/folderService.js";
 import { folderListKeyboard } from "../../keyboards/folderKeyboard.js";
 
@@ -20,7 +20,7 @@ export async function listFoldersCallback(ctx: Context) {
 }
 
 export async function viewFolderCallback(ctx: Context) {
-  if (!ctx.from || !ctx.callbackQuery) return;
+  if (!ctx.from || !ctx.callbackQuery || !ctx.callbackQuery.data) return;
   
   const folderId = ctx.callbackQuery.data.replace("view_folder_", "");
   const folder = await folderService.getFolderById(folderId, ctx.from.id);
@@ -30,7 +30,6 @@ export async function viewFolderCallback(ctx: Context) {
     return;
   }
   
-  // Получаем количество заметок в папке
   const noteCount = await folderService.getNoteCountInFolder(folderId, ctx.from.id);
   
   await ctx.editMessageText(

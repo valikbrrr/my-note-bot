@@ -1,5 +1,5 @@
 import { InlineKeyboard } from "grammy";
-import { IFolder } from "../database/models/Folder.js";
+import { IFolder } from "../database/models/Folder";
 
 export const folderListKeyboard = (folders: IFolder[]) => {
   const keyboard = new InlineKeyboard();

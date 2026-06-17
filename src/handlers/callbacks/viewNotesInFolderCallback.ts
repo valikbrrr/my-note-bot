@@ -1,10 +1,10 @@
-import { Context } from "grammy";
-import { NoteService } from "../../services/noteService.js";
+import { Context } from "../../types/context";
+import { NoteService } from "../../services/noteService";
 
 const noteService = new NoteService();
 
 export async function viewNotesInFolderCallback(ctx: Context) {
-  if (!ctx.from || !ctx.callbackQuery) return;
+  if (!ctx.from || !ctx.callbackQuery || !ctx.callbackQuery.data) return;
   
   const folderId = ctx.callbackQuery.data.replace("view_notes_in_folder_", "");
   const notes = await noteService.getUserNotes(ctx.from.id, folderId);
@@ -24,7 +24,6 @@ export async function viewNotesInFolderCallback(ctx: Context) {
     return;
   }
   
-  // Показываем первые 5 заметок с пагинацией
   const displayNotes = notes.slice(0, 5);
   const notesText = displayNotes.map((note, index) => 
     `${index + 1}. ${note.content.substring(0, 50)}${note.content.length > 50 ? "..." : ""}`

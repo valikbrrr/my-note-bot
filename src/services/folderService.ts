@@ -1,5 +1,5 @@
-import { Folder } from "../database/models/Folder.js";
-import { Note } from "../database/models/Note.js";
+import { Folder } from "../database/models/Folder";
+import { Note } from "../database/models/Note";
 
 export class FolderService {
   async createFolder(name: string, userId: number) {

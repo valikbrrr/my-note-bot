@@ -10,7 +10,6 @@ import {
 import { viewNotesInFolderCallback } from "./callbacks/viewNotesInFolderCallback.js";
 import { createFolderFromListCallback } from "./callbacks/createFolderCallback.js";
 import {
-  renameFolderCallback,
   deleteFolderCallback,
   confirmDeleteFolderCallback,
 } from "./callbacks/deleteFolderCallback.js";
@@ -19,6 +18,7 @@ import {
   backToFoldersCallback,
   backToMainCallback,
 } from "./callbacks/navigationCallback.js";
+import { renameFolderCallback } from "./callbacks/renameFolderCallback.js";
 
 export function registerHandlers() {
   // Команды

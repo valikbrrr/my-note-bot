@@ -1,11 +1,10 @@
-import { Context } from "grammy";
+import { Context } from "../../types/context.js";
 
 export async function createFolderFromListCallback(ctx: Context) {
   if (!ctx.from || !ctx.callbackQuery) return;
   
-  // Устанавливаем состояние ожидания названия папки
   ctx.session.step = "waiting_for_folder_name";
-  ctx.session.returnTo = "folders_list"; // Запоминаем, откуда пришли
+  ctx.session.returnTo = "folders_list";
   
   await ctx.editMessageText(
     "📁 Введите название новой папки:",

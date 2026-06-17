@@ -1,7 +1,7 @@
-import { Context } from "grammy";
+import { Context } from "../../types/context.js";
 import { FolderService } from "../../services/folderService.js";
-import { folderListKeyboard } from "../../keyboards/folderKeyboard.js";
-import { mainKeyboard } from "../../keyboards/mainKeyboard.js";
+import { folderListKeyboard } from "../../keyboards/folderKeyboard";
+import { mainKeyboard } from "../../keyboards/mainKeyboard";
 
 const folderService = new FolderService();
 
