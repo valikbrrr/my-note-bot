@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@grammyjs/storage-free": "^2.5.1",
     "dotenv": "^16.4.7",
     "grammy": "^1.35.1",
     "mongoose": "^9.6.2"
