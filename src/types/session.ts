@@ -1,3 +1,8 @@
+export interface ShopItem {
+  name: string;
+  checked: boolean;
+}
+
 export interface SessionData {
   step:
     | "idle"
@@ -7,11 +12,13 @@ export interface SessionData {
     | "waiting_for_folder_rename"
     | "editing_note"
     | "editing_note_content"
-    | "moving_note";
+    | "moving_note"
+    | "waiting_for_shop_items";
   tempNote?: string;
   tempNoteTitle?: string;
   tempNoteId?: string;
   tempNoteContent?: string;
   tempFolderId?: string;
   returnTo?: "folders_list" | "main_menu";
+  shopItems?: ShopItem[];
 }

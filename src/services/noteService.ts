@@ -57,6 +57,14 @@ export class NoteService {
     );
   }
 
+  async moveNote(noteId: string, userId: number, folderId: string) {
+    return await Note.findOneAndUpdate(
+      { _id: noteId, userId },
+      { folderId: new mongoose.Types.ObjectId(folderId) },
+      { new: true },
+    );
+  }
+
   async getNotesByFolder(folderId: string, userId: number) {
     return await Note.find({
       userId,

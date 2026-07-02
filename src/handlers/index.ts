@@ -2,7 +2,6 @@ import { bot } from "../bot";
 import { startCommand } from "./commands/start";
 import { helpCommand } from "./commands/help";
 import { noteCallback } from "./callbacks/noteCallback";
-import { shopCallback } from "./callbacks/shopCallback";
 import {
   listFoldersCallback,
   viewFolderCallback,
@@ -32,6 +31,14 @@ import {
   handleCreateFolder,
 } from "./callbacks/folderSaveCallback";
 import { renameFolderCallback } from "./callbacks/renameFolderCallback";
+import {
+  shopCallback,
+  shopToggleCallback,
+  shopAddMoreCallback,
+  shopClearCallback,
+  shopDoneCallback,
+  shopCancelCallback,
+} from "./callbacks/shopCallbacks";
 
 export function registerHandlers() {
   // Команды
@@ -45,7 +52,6 @@ export function registerHandlers() {
 
   // Callback'и для заметок
   bot.callbackQuery("answer_note", noteCallback);
-  bot.callbackQuery("answer_shop", shopCallback);
   bot.callbackQuery(/^view_notes_in_folder_.+/, viewNotesInFolderCallback);
   bot.callbackQuery(/^view_note_.+/, viewNoteCallback);
   bot.callbackQuery(/^edit_note_.+/, editNoteCallback);
@@ -66,6 +72,14 @@ export function registerHandlers() {
   bot.callbackQuery(/^save_to_folder_.+/, handleSaveToFolder);
   bot.callbackQuery("no_folder", handleNoFolder);
   bot.callbackQuery("create_folder", handleCreateFolder);
+
+  // Callback'и для списка продуктов
+  bot.callbackQuery("answer_shop", shopCallback);
+  bot.callbackQuery(/^shop_toggle_\d+$/, shopToggleCallback);
+  bot.callbackQuery("shop_add_more", shopAddMoreCallback);
+  bot.callbackQuery("shop_clear", shopClearCallback);
+  bot.callbackQuery("shop_done", shopDoneCallback);
+  bot.callbackQuery("shop_cancel", shopCancelCallback);
 
   // Обработка текстовых сообщений
   bot.on(":text", handleTextMessage);
